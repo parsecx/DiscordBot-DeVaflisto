@@ -12,13 +12,9 @@ namespace AdminBot
         public string Prefix { get; private set; }
 
         [JsonProperty("data")]
-        public string Data { get; private set; }
+        public string Data { get; set; }
 
         [JsonProperty("vocab")]
-        public List<Vocab> Words {get; set;}
-    }
-    public struct Vocab
-    {
-        public string Word { get; set;}
-    }
+        public List<string> Words {get; set;}
+    
 }

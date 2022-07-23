@@ -32,15 +32,15 @@ namespace AdminBot
                 EnableDms = false
             };
             Commands = Client.UseCommandsNext(commandsConfig);
-            Commands.RegisterCommands<ModerCommands>();
+            Commands.RegisterCommands(typeof(ModerCommands));
             await Client.ConnectAsync();
             await Task.Delay(-1);
         }
-        private Task OnClientReady(DiscordClient c,ReadyEventArgs e)
+        private Task OnClientReady(DiscordClient c, ReadyEventArgs e)
         {
             return Task.CompletedTask;
         }
-        public static async Task<ConfigJson> JsonGetter()
+        public async Task<ConfigJson> JsonGetter()
         {
             var json = string.Empty;
             using (var fs = File.OpenRead("jsconfig.json"))

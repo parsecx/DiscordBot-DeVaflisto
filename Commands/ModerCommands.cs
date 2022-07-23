@@ -9,26 +9,32 @@ using System.Threading.Tasks;
 
 namespace AdminBot.Commands
 {
-    internal class ModerCommands :BaseCommandModule 
+    public class ModerCommands :BaseCommandModule 
     {
         [Command("AddForbiddenWords")]
         [Description("Add all words that u want to ban for")]
-        public async Task AddForbiddenWords([Description("Use coma as separator(no spaces)")]string par)
+        public async Task AddForbiddenWords(CommandContext ctx,[Description("Use coma as separator(no spaces)")]string par)
         {
             string[] arr = par.Split(',');
-            var jsonConfig = await Bot.JsonGetter();
+            var bot = new Bot();
+            var jsonConfig = await bot.JsonGetter();
             foreach(string item in arr)
             {
-                Vocab v = new()
-                {
-                    Word = item
-                };
-                jsonConfig.Words.Append(v);
+                jsonConfig.Words.Append<string>(item);
             }
             string output = JsonConvert.SerializeObject(jsonConfig, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText("jsconfig.json", output);
-            return Task.CompletedTask;
+            await ctx.Channel.SendMessageAsync(jsonConfig.Data);
         }
-        
+        [Command("ChangeLine")]
+        public async Task ChangeLine(CommandContext ctx, string line)
+        {
+            var bot = new Bot();
+            var jsonConfig = await bot.JsonGetter();
+            jsonConfig.Data = line;
+            string output = JsonConvert.SerializeObject(jsonConfig, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText("jsconfig.json", output);
+            await ctx.Channel.SendMessageAsync(jsonConfig.Data);
+        }
     }
 }

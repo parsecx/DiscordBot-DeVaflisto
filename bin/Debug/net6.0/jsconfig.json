@@ -1,7 +1,10 @@
 {
-  "token": "MTAwMDE1NTkyNzM1OTU0MTM2OQ.GIVT0c.QJ_3-n4XwiBthwol6iscrvPVx_zgC58QU0Myws",
+  "token": "MTAwMDE1NTkyNzM1OTU0MTM2OQ.G_AWOK.I7wiTxE2WrRIYafe-i6oIP_vjguFrKsjgs8XeQ",
   "prefix": "?",
-  "data": "I love u all",
-  "vocab": [ "biba", "boba" ]
-    
+  "data": "Здравствуй",
+  "vocab": [
+    "boba",
+    "privet",
+    "podarok"
+  ]
 }

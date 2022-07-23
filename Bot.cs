@@ -24,7 +24,6 @@ namespace AdminBot
                 AutoReconnect = true
             };
             Client = new DiscordClient(config);
-            Client.Ready += OnClientReady;
             var commandsConfig = new CommandsNextConfiguration
             {
                 StringPrefixes = new string[] { configJson.Prefix },
@@ -34,7 +33,26 @@ namespace AdminBot
             Commands = Client.UseCommandsNext(commandsConfig);
             Commands.RegisterCommands(typeof(ModerCommands));
             await Client.ConnectAsync();
+            Client.MessageCreated += OnMessage;
             await Task.Delay(-1);
+        }
+        private async Task OnMessage (DiscordClient c, MessageCreateEventArgs e)
+        {
+            var bot = new Bot();
+            var jsonConfig = await bot.JsonGetter();
+            string[] lineWords = e.Message.Content.Split(' ');
+            int counter = 0;
+            foreach (string item in jsonConfig.Words)
+                foreach(string word in lineWords)
+                {
+                    if (item == word)
+                        counter++;
+                }
+                var name = e.Message.Author.Username;
+            if (counter != 0)
+                await c.SendMessageAsync(e.Channel, name + ", u said "+counter.ToString() + " bad words");
+            if(!e.Message.Author.IsBot)
+                await e.Message.DeleteAsync("you said bad words");
         }
         private Task OnClientReady(DiscordClient c, ReadyEventArgs e)
         {

@@ -15,6 +15,7 @@ namespace AdminBot
         public string Data { get; set; }
 
         [JsonProperty("vocab")]
-        public List<string> Words {get; set;}
-    
+        public List<string> Words { get; set; }
+
+    }
 }

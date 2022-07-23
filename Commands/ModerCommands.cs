@@ -20,7 +20,7 @@ namespace AdminBot.Commands
             var jsonConfig = await bot.JsonGetter();
             foreach(string item in arr)
             {
-                jsonConfig.Words.Append<string>(item);
+                jsonConfig.Words.Add(item);
             }
             string output = JsonConvert.SerializeObject(jsonConfig, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText("jsconfig.json", output);

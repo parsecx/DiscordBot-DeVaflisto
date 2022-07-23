@@ -9,9 +9,6 @@ namespace AdminBot.Commands
 {
     public class UserCommands:BaseCommandModule 
     {
-       /* public async Task()
-        {
-            ctx.
-        }*/
+  
     }
 }
